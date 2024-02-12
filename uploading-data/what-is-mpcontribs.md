@@ -19,7 +19,11 @@ Under Construction. We are working on creating interactive interfaces that enabl
 Read the [concepts section](../mpcontribs.md#concepts), [Create a project](https://contribs.materialsproject.org/contribute), install [`mpcontribs-client`](https://pypi.org/project/mpcontribs-client/), and set the `MPCONTRIBS_API_KEY` environment variable to the API key shown on the [profile page](https://profile.materialsproject.org) or your [dashboard](https://materialsproject.org/dashboard). The following code snippet outlines the general process of adding data to your project. See the next section for step-by-step instructions.
 
 ```python
-from mpcontribs.client import Client
+import pandas
+import pathlib
+import pymatgen
+from mpcontribs.client import Attachment, Client
+
 client = Client(project="my_test_project")
 client.init_columns({"a": "eV", "b.c": None, "b.d": ""})
 contributions = [{
@@ -28,9 +32,9 @@ contributions = [{
         "a": "3 eV",
         "b": {"c": "hello", "d": 3}
     },
-    "structures": [`pymatgen.core.Structure`, ...],
-    "tables": [`pandas.DataFrame`, ...],
-    "attachments": [`pathlib.Path`, `mpcontribs.client.Attachment`, ...]
+    "structures": [pymatgen.core.Structure, ...],
+    "tables": [pandas.DataFrame, ...],
+    "attachments": [pathlib.Path, Attachment, ...]
 }]
 client.submit_contributions(contributions)
 ```
